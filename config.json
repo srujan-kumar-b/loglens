@@ -1,0 +1,17 @@
+{
+  "timezone": "IST",
+  "window_minutes": 5,
+  "excluded_paths": [],
+  "rules": {
+    "high_error_rate": {
+      "enabled": true,
+      "threshold_pct": 5.0,
+      "min_requests": 20
+    },
+    "sustained_high_latency": {
+      "enabled": true,
+      "threshold_ms": 2000.0,
+      "consecutive_windows": 2
+    }
+  }
+}
