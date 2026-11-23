@@ -1,7 +1,7 @@
 # AI Usage Disclosure
 
 ## Tools Used
-* **AI Assistant (LLM):** Used during development for requirement breakdown, modular code scaffolding, edge-case brainstorming, and drafting unit tests and documentation.
+* **Gemini:** Used during development for requirement breakdown, modular code scaffolding, edge-case brainstorming, and drafting unit tests and documentation.
 
 ## What AI Was Used For
 1. **Architecture & Module Planning:** Structuring the pipeline into clean, single-responsibility modules (`parser.py`, `aggregator.py`, `rules.py`, `reporter.py`).
