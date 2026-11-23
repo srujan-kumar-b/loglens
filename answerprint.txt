@@ -1,0 +1,120 @@
+What the PDF asked you to build
+
+The task was to create LogLens, a command-line tool that:
+
+1. Reads log files from multiple services.
+2. Supports two log formats:
+   - Plain text logs
+   - JSON-line logs
+3. Handles different time zones and converts them to one timezone.
+4. Groups requests into fixed 5-minute windows.
+5. Calculates:
+   - Request count
+   - Error rate
+   - p50 latency
+   - p95 latency
+6. Detects incidents:
+   - Error rate above 5% with at least 20 requests
+   - p95 latency above 2,000 ms for two consecutive windows
+7. Combines consecutive alert windows into one incident.
+8. Produces CSV and JSON reports.
+9. Allows filtering by service and time range.
+10. Includes tests, documentation, a design note, AI usage note, and presentation.
+
+What you implemented
+
+1. Log parsing
+
+Your parser.py reads all files in the logs/ folder.
+
+It handles:
+
+- Plain-text logs
+- JSON logs
+- UTC and IST timestamps
+- Invalid/corrupted lines
+- Multi-line stack traces
+- HTTP errors with status 500 or higher
+
+Your run successfully processed:
+
+- 22,950 requests
+- 18 invalid lines
+- 197 stack-trace lines
+
+2. Time normalization
+
+All timestamps are converted to IST, UTC+05:30.
+
+For example, a UTC timestamp is converted to the equivalent IST time so all
+services can be compared consistently.
+
+3. Five-minute metrics
+
+Your aggregator.py groups requests into windows such as:
+
+14:00-14:05
+14:05-14:10
+14:10-14:15
+
+For every service and window, it calculates request count, error rate, p50,
+and p95 latency.
+
+4. Alert detection
+
+Your rules.py detected these incidents:
+
+- payments-api had a high error rate from 14:25 to 14:40 IST
+- accounts-api had sustained high latency from 16:00 to 16:15 IST
+- payments-api had sustained high latency from 18:50 to 19:00 IST
+
+5. Reports
+
+Your reporter.py generates:
+
+- output/incidents.json
+- output/incidents.csv
+- output/service_summary.json
+- output/service_summary.csv
+
+6. Filtering
+
+Your main.py supports filtering by:
+
+- Service
+- Start time
+- End time
+
+This was tested successfully.
+
+7. Testing and documentation
+
+Your tests/test_loglens.py contains 6 tests, and all 6 passed.
+
+You also created:
+
+- README.md
+- DESIGN.md
+- AI_USAGE.md
+
+Is everything correct?
+
+Core programming task: Yes
+
+The main software requirements are implemented and working correctly. The
+tests pass and main.py produces valid results.
+
+Submission requirements: Almost
+
+One required deliverable is missing:
+
+- A presentation of up to 10 slides.
+
+The following PDF items are optional stretch goals and are not required:
+
+- Dashboard or chart
+- Tail mode
+- Handling extremely large files more efficiently
+
+So your project is technically complete for the main coding task, but you
+should still prepare the presentation before submitting.
